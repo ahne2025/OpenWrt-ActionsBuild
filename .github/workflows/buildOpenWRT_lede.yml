@@ -131,11 +131,11 @@ jobs:
     - name: 检查文件状态
       id: check
       run: |
-        [ -e $FEEDS_FILE ] && echo ":: name=feeds::success">> $GITHUB_OUTPUT
-        [ -e $FILES_PATH ] && echo ":: name=files::success">> $GITHUB_OUTPUT
-        [ -e $OPENWRT_PATCH ] && echo ":: name=patch::success">> $GITHUB_OUTPUT
-        [ -e $BEFOR_PATCH ] && echo ":: name=befor::success">> $GITHUB_OUTPUT
-        [ -e $AFTER_PATCH ] && echo ":: name=after::success">> $GITHUB_OUTPUT
+        [ -e $FEEDS_FILE ] && echo ":: name=feeds::success" >> $GITHUB_OUTPUT
+        [ -e $FILES_PATH ] && echo ":: name=files::success" >> $GITHUB_OUTPUT
+        [ -e $OPENWRT_PATCH ] && echo ":: name=patch::success" >> $GITHUB_OUTPUT
+        [ -e $BEFOR_PATCH ] && echo ":: name=befor::success" >> $GITHUB_OUTPUT
+        [ -e $AFTER_PATCH ] && echo ":: name=after::success" >> $GITHUB_OUTPUT
     
     - name: 替换软件源配置
       if: env.REPLACE_FEEDS == 'true' && steps.check.outputs.feeds == 'success'
@@ -193,7 +193,7 @@ jobs:
         echo "Start Time: "$(date +"%Y/%m/%d %H:%M:%S")""
         make -j$(nproc) V=s
         echo "End Time: "$(date +"%Y/%m/%d %H:%M:%S")""
-        echo ":: name=status::success">> $GITHUB_OUTPUT
+        echo ":: name=status::success" >> $GITHUB_OUTPUT
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
         echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
@@ -212,7 +212,7 @@ jobs:
         cd openwrt/bin/targets/*/*
         rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
-        echo ":: name=status::success">> $GITHUB_OUTPUT
+        echo ":: name=status::success" >> $GITHUB_OUTPUT
         
     - name: 上传固件
       uses: actions/upload-artifact@main
@@ -231,11 +231,11 @@ jobs:
       id: releasetag
       if: env.UPLOAD_RELEASE == 'true' && steps.makefirmware.outputs.status == 'success' && !cancelled()
       run: |
-        echo ":: name=release_tag::$(date +"%Y.%m.%d-%H%M")">> $GITHUB_OUTPUT
+        echo ":: name=release_tag::$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
         touch release.txt
         [ $UPLOAD_COWTRANSFER = true ] && echo "🔗 [Cowtransfer](${{ steps.cowtransfer.outputs.url }})" >> release.txt
         [ $UPLOAD_WETRANSFER = true ] && echo "🔗 [WeTransfer](${{ steps.wetransfer.outputs.url }})" >> release.txt
-        echo ":: name=status::success">> $GITHUB_OUTPUT
+        echo ":: name=status::success" >> $GITHUB_OUTPUT
         
     - name: 上传固件到Release
       uses: softprops/action-gh-release@v1
