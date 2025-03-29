@@ -11,4 +11,4 @@ src-git telephony https://github.com/coolsnowwolf/telephony.git
 #src-link custom /usr/src/openwrt/custom-feed
 src-git kenzo https://github.com/kenzok8/openwrt-packages
 src-git small https://github.com/kenzok8/small
-src-git xuanranran https://github.com/xuanranran/openwrt-package
+#src-git xuanranran https://github.com/xuanranran/openwrt-package
