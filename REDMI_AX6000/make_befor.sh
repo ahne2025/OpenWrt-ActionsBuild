@@ -14,5 +14,4 @@
 sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/luci2/bin/config_generate
 ##任务设置调到系统菜单
 sed -i '8d' package/feeds/smpackage/luci-app-taskplan/luasrc/controller/*.lua
-sed -i 's/control/system/g' package/feeds/smpackage/luci-app-taskplan/luasrc/controller/*.lua
-sed -i 's/systemler/controller/g' package/feeds/smpackage/luci-app-taskplan/luasrc/controller/*.lua
+sed -i 's/"control"/"system"/g' package/feeds/smpackage/luci-app-taskplan/luasrc/controller/*.lua
